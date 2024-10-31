@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dunygwehasre5"
+path="res://.godot/imported/mech.obj-cf81500ac1a6afadc3bd58dadb7568ff.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mech.obj-cf81500ac1a6afadc3bd58dadb7568ff.mesh"]
+
+source_file="res://mech.obj"
+dest_files=["res://.godot/imported/mech.obj-cf81500ac1a6afadc3bd58dadb7568ff.mesh", "res://.godot/imported/mech.obj-cf81500ac1a6afadc3bd58dadb7568ff.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

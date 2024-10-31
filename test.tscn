@@ -1,0 +1,191 @@
+[gd_scene load_steps=18 format=3 uid="uid://djys3t2hfsxfu"]
+
+[ext_resource type="ArrayMesh" uid="uid://dunygwehasre5" path="res://mech.obj" id="1_reuy5"]
+[ext_resource type="Shader" path="res://outline.gdshader" id="2_4ecdl"]
+[ext_resource type="Shader" path="res://pallettelimiting.gdshader" id="2_bo4h4"]
+[ext_resource type="Texture2D" uid="uid://cig161ebvnn3q" path="res://icon.svg" id="4_ub0qu"]
+[ext_resource type="Texture2D" uid="uid://bc3y4hkp0a7pi" path="res://ringed_gas_giant_planet.png" id="5_in7pm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lg417"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5s3x0"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.741176, 0.109804, 1)
+metallic = 0.5
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkkr4"]
+diffuse_mode = 3
+specular_mode = 2
+albedo_color = Color(0.917647, 0.913725, 0.917647, 1)
+metallic = 0.51
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2b7ga"]
+albedo_color = Color(0.235779, 0.227933, 0.232456, 1)
+metallic = 0.51
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_07ymp"]
+render_priority = 0
+shader = ExtResource("2_4ecdl")
+shader_parameter/depth_threshold = 0.05
+shader_parameter/reverse_depth_threshold = 0.25
+shader_parameter/normal_threshold = 0.6
+shader_parameter/darken_amount = 0.3
+shader_parameter/lighten_amount = 1.5
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+
+[sub_resource type="QuadMesh" id="QuadMesh_q4103"]
+material = SubResource("ShaderMaterial_07ymp")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tcls1"]
+shader = ExtResource("2_bo4h4")
+
+[sub_resource type="Animation" id="Animation_noars"]
+resource_name = "main"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.53333, 5.06667, 7.5, 9.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.27415, 3.59524), Vector3(3.595, 1.274, 0), Vector3(0, 1.274, -3.595), Vector3(-3.595, 1.274, 0), Vector3(0, 1.27415, 3.59524)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.53333, 5.06667, 7.5, 9.93333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5708, 0), Vector3(0, 3.14159, 0), Vector3(0, 4.71239, 0), Vector3(0, 6.28319, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(9.96667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eejjb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.27415, 3.59524)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pe7b5"]
+_data = {
+"RESET": SubResource("Animation_eejjb"),
+"main": SubResource("Animation_noars")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_dd83l"]
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cqkd"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("5_in7pm")
+uv1_offset = Vector3(500, 200, 0)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_lg417")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 5
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(230, 129)
+render_target_update_mode = 4
+
+[node name="Mech" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.065809, 0, 0.155022)
+mesh = ExtResource("1_reuy5")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_5s3x0")
+surface_material_override/1 = SubResource("StandardMaterial3D_qkkr4")
+surface_material_override/2 = SubResource("StandardMaterial3D_2b7ga")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27415, 3.59524)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.27415, -3.59524)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_q4103")
+skeleton = NodePath("../..")
+
+[node name="Pallette Limitter" type="Sprite2D" parent="SubViewportContainer/SubViewport/Camera3D"]
+material = SubResource("ShaderMaterial_tcls1")
+position = Vector2(552, 319)
+scale = Vector2(500, 500)
+texture = ExtResource("4_ub0qu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Camera3D"]
+libraries = {
+"": SubResource("AnimationLibrary_pe7b5")
+}
+autoplay = "main"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.887397, 0.461005, 0, -0.461005, 0.887397, 0, 4.06316, 7.74472)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/DirectionalLight3D"]
+transform = Transform3D(1, 0, 0, 0, -0.951261, -0.308386, 0, 0.308386, -0.951261, 0, 4.06316, 7.74472)
+
+[node name="Skybox" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(5000, 0, 0, 0, 4698.46, -1710.1, 0, 1710.1, 4698.46, 0, 0, 0)
+mesh = SubResource("SphereMesh_dd83l")
+surface_material_override/0 = SubResource("StandardMaterial3D_8cqkd")
