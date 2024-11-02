@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://408jw78aky4m"]
+
+[ext_resource type="PackedScene" uid="uid://572birei3p8a" path="res://castle.glb" id="1_fyvtq"]
+[ext_resource type="Texture2D" uid="uid://bgggt2ennpn23" path="res://brick.png" id="2_qb6go"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vsyo1"]
+albedo_texture = ExtResource("2_qb6go")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbeim"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuul7"]
+albedo_texture = ExtResource("2_qb6go")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4go5"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_qb6go")
+emission_energy_multiplier = 7.47
+heightmap_scale = 2.124
+
+[node name="castle2" instance=ExtResource("1_fyvtq")]
+
+[node name="castle" parent="." index="0"]
+surface_material_override/1 = SubResource("StandardMaterial3D_vsyo1")
+surface_material_override/2 = SubResource("StandardMaterial3D_rbeim")
+surface_material_override/3 = SubResource("StandardMaterial3D_vuul7")
+surface_material_override/4 = SubResource("StandardMaterial3D_q4go5")
