@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://djys3t2hfsxfu"]
+[gd_scene load_steps=23 format=3 uid="uid://djys3t2hfsxfu"]
 
 [ext_resource type="ArrayMesh" uid="uid://dunygwehasre5" path="res://mech.obj" id="1_reuy5"]
 [ext_resource type="Shader" path="res://outline.gdshader" id="2_4ecdl"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://iwy5myyj3acg" path="res://character.tscn" id="5_ks3nw"]
 [ext_resource type="PackedScene" uid="uid://408jw78aky4m" path="res://castle.tscn" id="6_evo0q"]
 [ext_resource type="PackedScene" uid="uid://1mbkcdrs5mj5" path="res://zombie.tscn" id="8_ui8ef"]
+[ext_resource type="PackedScene" uid="uid://dox85luq7niwt" path="res://player.tscn" id="9_w8o7e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lg417"]
 
@@ -197,7 +198,8 @@ visible = false
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -6.78166, -7.17585, 1.14479)
 
 [node name="character" parent="." instance=ExtResource("5_ks3nw")]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -0.382786, -1.12699, -0.0154774)
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0.389158, -1.12699, -0.0154774)
+visible = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91771, 4.22062, -3.01082)
@@ -205,3 +207,6 @@ omni_range = 19.223
 
 [node name="new_thin_zombie2" parent="." instance=ExtResource("8_ui8ef")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -4.81224, -1.18625, -6.15691)
+
+[node name="Player" parent="." instance=ExtResource("9_w8o7e")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -0.35944, -1.3146, -1.07283)
