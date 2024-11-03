@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://iwy5myyj3acg"]
 
-[ext_resource type="PackedScene" uid="uid://drn3rn4pgbpbv" path="res://character.glb" id="1_8rhey"]
+[ext_resource type="PackedScene" uid="uid://p5ntu2xulr8r" path="res://character.glb" id="1_8rhey"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uatvo"]
 diffuse_mode = 3
@@ -38,7 +38,7 @@ roughness = 0.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n73v8"]
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0.901961, 0.901961, 0.882353, 1)
+albedo_color = Color(0.640316, 0.363255, 0.132229, 1)
 roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvnuy"]
@@ -51,7 +51,7 @@ roughness = 0.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ay7l1"]
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0.498039, 0.290196, 0.160784, 1)
+albedo_color = Color(0.792311, 0.500029, 0.322776, 1)
 metallic = 1.0
 roughness = 0.0
 
