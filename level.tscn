@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://djys3t2hfsxfu"]
+
+[ext_resource type="ArrayMesh" uid="uid://dunygwehasre5" path="res://mech.obj" id="1_x2q2p"]
+[ext_resource type="Texture2D" uid="uid://bc3y4hkp0a7pi" path="res://ringed_gas_giant_planet.png" id="2_wgju3"]
+[ext_resource type="PackedScene" uid="uid://408jw78aky4m" path="res://castle.tscn" id="3_xo4nn"]
+[ext_resource type="PackedScene" uid="uid://w4so4chwbsuv" path="res://player.tscn" id="4_d1p0j"]
+[ext_resource type="PackedScene" uid="uid://1mbkcdrs5mj5" path="res://zombie.tscn" id="5_olh4v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5s3x0"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.741176, 0.109804, 1)
+metallic = 0.5
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkkr4"]
+diffuse_mode = 3
+specular_mode = 2
+albedo_color = Color(0.917647, 0.913725, 0.917647, 1)
+metallic = 0.51
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2b7ga"]
+albedo_color = Color(0.235779, 0.227933, 0.232456, 1)
+metallic = 0.51
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b2md"]
+albedo_texture = ExtResource("2_wgju3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_dd83l"]
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cqkd"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_wgju3")
+uv1_offset = Vector3(500, 200, 0)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91771, 3.34143, 5.29224)
+visible = false
+light_indirect_energy = 3.545
+omni_range = 45.255
+omni_attenuation = 0.722
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91771, 3.34143, -3.29714)
+light_indirect_energy = 3.545
+shadow_enabled = true
+omni_range = 45.255
+omni_attenuation = 0.722
+
+[node name="new_thin_zombie2" parent="." instance=ExtResource("5_olh4v")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -4.81224, -1.18625, -6.15691)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.00912286, -0.82709, 0.561995, 0.0134244, 0.562069, 0.826981, -0.999868, 0, 0.0162309, 80.5182, 52.9159, 0)
+shadow_enabled = true
+
+[node name="Mech" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.065809, 0, 0.155022)
+visible = false
+mesh = ExtResource("1_x2q2p")
+surface_material_override/0 = SubResource("StandardMaterial3D_5s3x0")
+surface_material_override/1 = SubResource("StandardMaterial3D_qkkr4")
+surface_material_override/2 = SubResource("StandardMaterial3D_2b7ga")
+
+[node name="Skybox" type="MeshInstance3D" parent="."]
+transform = Transform3D(5000, 0, 0, 0, 4698.46, -1710.1, 0, 1710.1, 4698.46, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_7b2md")
+mesh = SubResource("SphereMesh_dd83l")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_8cqkd")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.72434, 0.689443, 0, -0.689443, 0.72434, 0, 6.55522, 8.53529)
+visible = false
+
+[node name="castle2" parent="." instance=ExtResource("3_xo4nn")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -6.79863, -7.18261, 1.13985)
+
+[node name="Player" parent="." instance=ExtResource("4_d1p0j")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 1.70097, -1.26411, 0.027977)
+acceleration = 5.0
