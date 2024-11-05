@@ -107,6 +107,19 @@ public partial class Player : CharacterBody3D
 		}
 		//RotateY(Vector3.Back.Rotated(Vector3.Up, Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up)));
 		float targetAngle = Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up);
-		playerModel.Rotation = playerModel.Rotation.Lerp(new Vector3(0, targetAngle, 0), RotationSpeed * (float)delta);
+
+		UpdateRotation(targetAngle, (float)delta);
 	}
+    private void UpdateRotation(float targetAngle ,float delta)
+    {
+        // Calculate the shortest angle difference
+        float currentAngle = playerModel.Rotation.Y;
+        float angleDifference = Mathf.Wrap(targetAngle - currentAngle, -Mathf.Pi, Mathf.Pi);
+
+        // Calculate the new target rotation
+        float newAngle = currentAngle + angleDifference * RotationSpeed * (float)delta;
+
+        // Apply the rotation
+        playerModel.Rotation = new Vector3(0, newAngle, 0);
+    }
 }
