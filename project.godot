@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [display]
 
 window/size/viewport_width=256
-window/size/viewport_height=180
+window/size/viewport_height=192
 window/size/window_width_override=640
 window/size/window_height_override=480
 window/stretch/mode="viewport"
@@ -79,7 +79,3 @@ escape={
 [physics]
 
 3d/default_gravity=30.0
-
-[rendering]
-
-renderer/rendering_method="mobile"

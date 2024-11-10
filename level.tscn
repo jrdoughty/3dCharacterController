@@ -51,6 +51,7 @@ omni_attenuation = 0.722
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.91771, 3.34143, -3.29714)
+light_energy = 3.25
 light_indirect_energy = 3.545
 shadow_enabled = true
 omni_range = 45.255
