@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://iwy5myyj3acg"]
 
-[ext_resource type="PackedScene" uid="uid://p5ntu2xulr8r" path="res://character.glb" id="1_8rhey"]
+[ext_resource type="PackedScene" uid="uid://p5ntu2xulr8r" path="res://Character/character.glb" id="1_8rhey"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uatvo"]
 diffuse_mode = 3

@@ -1,3 +1,4 @@
+namespace CharacterController;
 using Godot;
 using System;
 
@@ -27,18 +28,6 @@ public partial class Player : CharacterBody3D
 		playerModel = (ModelController)GetNode("PlayerModel");
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
-		if (@event.IsActionPressed("left_click"))
-		{
-			Input.SetMouseMode(Input.MouseModeEnum.Captured);
-		}
-		if (@event.IsActionPressed("escape"))
-		{
-			Input.SetMouseMode(Input.MouseModeEnum.Visible);
-		}
-}
     public override void _UnhandledInput(InputEvent @event)
 	{
 		base._UnhandledInput(@event);

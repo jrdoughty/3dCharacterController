@@ -1,3 +1,4 @@
+namespace CharacterController;
 using Godot;
 using System;
 

@@ -3,7 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dunygwehasre5" path="res://mech.obj" id="1_x2q2p"]
 [ext_resource type="Texture2D" uid="uid://bc3y4hkp0a7pi" path="res://ringed_gas_giant_planet.png" id="2_wgju3"]
 [ext_resource type="PackedScene" uid="uid://408jw78aky4m" path="res://castle.tscn" id="3_xo4nn"]
-[ext_resource type="PackedScene" uid="uid://w4so4chwbsuv" path="res://player.tscn" id="4_d1p0j"]
+[ext_resource type="PackedScene" uid="uid://w4so4chwbsuv" path="res://Character/player.tscn" id="4_d1p0j"]
 [ext_resource type="PackedScene" uid="uid://1mbkcdrs5mj5" path="res://zombie.tscn" id="5_olh4v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5s3x0"]
