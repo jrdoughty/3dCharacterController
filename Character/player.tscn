@@ -17,13 +17,15 @@ radius = 0.275171
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdu4d"]
 shader = ExtResource("3_jcdw5")
 
-[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera")]
+[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "playerModel", "inputGatherer")]
 script = ExtResource("1_8i4rs")
 Camera = NodePath("CameraPivot/SpringArm3D/PlayerCamera")
 MoveSpeed = 5.0
 acceleration = 2.0
 RotationSpeed = 2.0
 JumpImpulse = 20.0
+playerModel = NodePath("PlayerModel")
+inputGatherer = NodePath("Input")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0.958093, 0)

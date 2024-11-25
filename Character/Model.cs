@@ -1,19 +1,26 @@
 namespace CharacterController;
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Model : Node
 {
 
 	CharacterState currentState;
 	InputGatherer inputGatherer;
+	private Dictionary<string, CharacterState> states = new Dictionary<string, CharacterState>();
+
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		currentState = GetNode<CharacterState>("Idle");
-		currentState.Enter();
+		states.Add("idle", GetNode<CharacterState>("Idle"));
+		states.Add("jump", GetNode<CharacterState>("Jump"));
+		states.Add("walk", GetNode<CharacterState>("Walk"));
 		inputGatherer = GetNode<InputGatherer>("../Input");
+		currentState.Enter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,7 +44,7 @@ public partial class Model : Node
 	public void SwitchState(string state)
 	{
 		currentState.Exit();
-		currentState = GetNode<CharacterState>(state);
+		currentState = states[state];
 		currentState.Enter();
 	}
 }

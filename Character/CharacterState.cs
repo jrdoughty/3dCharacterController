@@ -6,6 +6,7 @@ using Godot;
 public partial class CharacterState : Node
 {
     protected Player player;
+    private string animation;
 
     public override void _Ready()
     {
@@ -14,9 +15,9 @@ public partial class CharacterState : Node
     static public Dictionary<string,int> statePriority = new Dictionary<string, int>
     {
         {"Idle", 0},
-        {"walk", 1},
-        {"run", 2},
-        {"jump", 3},
+        {"Walk", 1},
+        {"Run", 2},
+        {"Jump", 3},
         {"attack", 4},
         {"hurt", 5},
         {"die", 6}

@@ -6,14 +6,23 @@ using System.Linq;
 
 public partial class InputGatherer : Node
 {
+	[Export] public float MouseSensitivity = .25f;
+	private Vector2 cameraInputDirection = new Vector2(0, 0);
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public  Vector3 getNewPivotRotation(Vector3 pivotRotation, double delta)
 	{
+		pivotRotation = new Vector3(
+			(float)Math.Clamp(pivotRotation.X+cameraInputDirection.X * (float)delta, -Math.PI/3 ,Math.PI/6),
+			pivotRotation.Y+cameraInputDirection.Y * (float)delta,
+			0);
+		cameraInputDirection.X = 0;
+		cameraInputDirection.Y = 0;
+		return  pivotRotation;
 	}
 
 	public InputPackage GetInput()
@@ -22,13 +31,15 @@ public partial class InputGatherer : Node
 		input.inputActions = new System.Collections.Generic.List<string>();
 		input.inputDirection = Input.GetVector("left", "right", "forward", "back");
 		if(input.inputDirection != Vector2.Zero)
-			input.inputActions.Add("Walk");
+			input.inputActions.Add("walk");
 		//if(Input.IsActionPressed("attack"))
 		//	input.inputActions.Add("Attack");
 		if(Input.IsActionPressed("jump"))
-			input.inputActions.Add("Jump");
+			input.inputActions.Add("jump");
 		if(input.inputActions.Count == 0)
-			input.inputActions.Add("Idle");
+			input.inputActions.Add("idle");
+		else
+			GD.Print(input.inputActions[0]);
 		return input;
 	}
 	
@@ -44,4 +55,20 @@ public partial class InputGatherer : Node
 			Input.SetMouseMode(Input.MouseModeEnum.Visible);
 		}
 	}
+
+    public override void _UnhandledInput(InputEvent @event)
+	{
+		base._UnhandledInput(@event);
+		bool isCameraInMotion = @event is InputEventMouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured;
+		
+		if(isCameraInMotion)
+		{
+			InputEventMouseMotion ie = @event as InputEventMouseMotion;
+			cameraInputDirection.X = -ie.ScreenRelative.Y * MouseSensitivity;
+			cameraInputDirection.Y = -ie.ScreenRelative.X * MouseSensitivity;
+			
+		}
+
+	}
+
 }
