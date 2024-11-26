@@ -13,9 +13,10 @@ public partial class Player : CharacterBody3D
 	[Export] public float JumpImpulse = 3f;
 
 	[Export] public Visuals visual;
+	[Export] public CollisionShape3D collider;
 
 	
-	private Node3D pivot;
+	private Node3D cameraMount;
 	private Model model;
 	[Export] public InputGatherer inputGatherer;
 
@@ -23,14 +24,15 @@ public partial class Player : CharacterBody3D
 	public override void _Ready()
 	{
 		base._Ready();
-		pivot = (Node3D)GetNode("%CameraPivot");
+		cameraMount = (Node3D)GetNode("%CameraPivot");
 		Camera.Current = true;
 		model = (Model)GetNode("Model");
+		visual.AcceptModel(model);
 	}
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
-		pivot.Rotation = inputGatherer.getNewPivotRotation(pivot.Rotation,  delta);
+		cameraMount.Rotation = inputGatherer.getNewPivotRotation(cameraMount.Rotation,  delta);
 
 		MoveAndSlide();
 	}

@@ -275,3 +275,14 @@ surface_material_override/2 = SubResource("StandardMaterial3D_p1aqr")
 surface_material_override/4 = SubResource("ShaderMaterial_cxdbi")
 surface_material_override/5 = SubResource("StandardMaterial3D_kmqh5")
 surface_material_override/6 = SubResource("ShaderMaterial_isbcw")
+
+[node name="StaminaBar" type="Label" parent="." index="2"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Stamina:"
+
+[node name="HealthBar" type="Label" parent="." index="3"]
+offset_top = 20.0
+offset_right = 56.0
+offset_bottom = 43.0
+text = "Health:"

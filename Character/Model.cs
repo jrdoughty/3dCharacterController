@@ -6,8 +6,9 @@ using System.Collections.Generic;
 public partial class Model : Node
 {
 
-	CharacterState currentState;
+	public CharacterState currentState;
 	InputGatherer inputGatherer;
+	public HumanoidResources resources;
 	private Dictionary<string, CharacterState> states = new Dictionary<string, CharacterState>();
 
 
@@ -21,6 +22,7 @@ public partial class Model : Node
 		states.Add("walk_jump", GetNode<CharacterState>("Jump"));
 		states.Add("walk", GetNode<CharacterState>("Walk"));
 		inputGatherer = GetNode<InputGatherer>("../Input");
+		resources = GetNode<HumanoidResources>("Resources");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

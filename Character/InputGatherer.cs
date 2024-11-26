@@ -14,15 +14,15 @@ public partial class InputGatherer : Node
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public  Vector3 getNewPivotRotation(Vector3 pivotRotation, double delta)
+	public  Vector3 getNewPivotRotation(Vector3 cameraMountRotation, double delta)
 	{
-		pivotRotation = new Vector3(
-			(float)Math.Clamp(pivotRotation.X+cameraInputDirection.X * (float)delta, -Math.PI/3 ,Math.PI/6),
-			pivotRotation.Y+cameraInputDirection.Y * (float)delta,
+		cameraMountRotation = new Vector3(
+			(float)Math.Clamp(cameraMountRotation.X+cameraInputDirection.X * (float)delta, -Math.PI/3 ,Math.PI/6),
+			cameraMountRotation.Y+cameraInputDirection.Y * (float)delta,
 			0);
 		cameraInputDirection.X = 0;
 		cameraInputDirection.Y = 0;
-		return  pivotRotation;
+		return  cameraMountRotation;
 	}
 
 	public InputPackage GetInput()

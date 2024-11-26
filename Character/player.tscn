@@ -1,15 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://w4so4chwbsuv"]
+[gd_scene load_steps=10 format=3 uid="uid://w4so4chwbsuv"]
 
 [ext_resource type="Script" path="res://Character/Player.cs" id="1_8i4rs"]
 [ext_resource type="Shader" path="res://pallettelimiting.gdshader" id="3_jcdw5"]
 [ext_resource type="Texture2D" uid="uid://cig161ebvnn3q" path="res://icon.svg" id="4_2mecj"]
 [ext_resource type="PackedScene" uid="uid://75tmsg38pnbq" path="res://Character/player_character.tscn" id="5_lc4pd"]
 [ext_resource type="Script" path="res://Character/Visuals.cs" id="6_dlm3y"]
+[ext_resource type="PackedScene" uid="uid://bon1btf8ojfay" path="res://Character/model.tscn" id="7_08lj0"]
 [ext_resource type="Script" path="res://Character/InputGatherer.cs" id="7_befft"]
-[ext_resource type="Script" path="res://Character/Model.cs" id="8_kjchl"]
-[ext_resource type="Script" path="res://Character/Walk.cs" id="9_8ytvh"]
-[ext_resource type="Script" path="res://Character/Idle.cs" id="9_mgjcj"]
-[ext_resource type="Script" path="res://Character/Jump.cs" id="9_y4xk7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vexg6"]
 radius = 0.275171
@@ -17,7 +14,7 @@ radius = 0.275171
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdu4d"]
 shader = ExtResource("3_jcdw5")
 
-[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "inputGatherer")]
+[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "collider", "inputGatherer")]
 script = ExtResource("1_8i4rs")
 Camera = NodePath("CameraPivot/SpringArm3D/PlayerCamera")
 MoveSpeed = 5.0
@@ -25,6 +22,7 @@ acceleration = 2.0
 RotationSpeed = 2.0
 JumpImpulse = 20.0
 visual = NodePath("Visual")
+collider = NodePath("CollisionShape3D")
 inputGatherer = NodePath("Input")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -56,16 +54,6 @@ script = ExtResource("6_dlm3y")
 [node name="Input" type="Node" parent="."]
 script = ExtResource("7_befft")
 
-[node name="Model" type="Node" parent="."]
-script = ExtResource("8_kjchl")
-
-[node name="Idle" type="Node" parent="Model"]
-script = ExtResource("9_mgjcj")
-
-[node name="Walk" type="Node" parent="Model"]
-script = ExtResource("9_8ytvh")
-
-[node name="Jump" type="Node" parent="Model"]
-script = ExtResource("9_y4xk7")
+[node name="Model" parent="." instance=ExtResource("7_08lj0")]
 
 [node name="Controller" type="Node" parent="."]
