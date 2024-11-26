@@ -1,22 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://bon1btf8ojfay"]
+[gd_scene load_steps=7 format=3 uid="uid://bon1btf8ojfay"]
 
 [ext_resource type="Script" path="res://Character/Model.cs" id="1_j41hh"]
 [ext_resource type="Script" path="res://Character/States/Idle.cs" id="2_i5vqc"]
 [ext_resource type="Script" path="res://Character/States/Walk.cs" id="3_puvet"]
 [ext_resource type="Script" path="res://Character/States/Jump.cs" id="4_3mqdd"]
 [ext_resource type="Script" path="res://Character/HumanoidResources.cs" id="5_kwhih"]
+[ext_resource type="Script" path="res://Character/States/HumanStates.cs" id="6_gwrjx"]
 
 [node name="Model" type="Node"]
 script = ExtResource("1_j41hh")
 
-[node name="Idle" type="Node" parent="."]
-script = ExtResource("2_i5vqc")
-
-[node name="Walk" type="Node" parent="."]
-script = ExtResource("3_puvet")
-
-[node name="Jump" type="Node" parent="."]
-script = ExtResource("4_3mqdd")
-
 [node name="Resources" type="Node" parent="."]
 script = ExtResource("5_kwhih")
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("6_gwrjx")
+
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource("2_i5vqc")
+
+[node name="Walk" type="Node" parent="States"]
+script = ExtResource("3_puvet")
+
+[node name="Jump" type="Node" parent="States"]
+script = ExtResource("4_3mqdd")

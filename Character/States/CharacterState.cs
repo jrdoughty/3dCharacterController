@@ -13,7 +13,6 @@ public partial class CharacterState : Node
 
     public override void _Ready()
     {
-        player = GetParent<Model>().GetParent<Player>();
     }
     static public Dictionary<string,int> statePriority = new Dictionary<string, int>
     {
@@ -25,6 +24,11 @@ public partial class CharacterState : Node
         {"hurt", 5},
         {"die", 6}
     };
+    
+    public void SetPlayer(Player p)
+    {
+        player = p;
+    }
     public void TryForceMove(String state)
     {
         //if(statePriority[state] > statePriority[animation])
