@@ -8,10 +8,11 @@ public partial class Walk : CharacterState
 	private Vector3 lastMovementDirection = Vector3.Back;
     public override string CheckRelevance(InputPackage input)
     {
-		if(input.inputDirection == Vector2.Zero && player.Velocity == Vector3.Zero)
-		
+		if(input.inputDirection == Vector2.Zero)
 		{
 			input.inputActions.Sort(PrioritySort);
+			if(input.inputActions[0] == "walk")
+				return "valid";
 			return input.inputActions[0];
 		}
 		return "valid";
@@ -42,7 +43,7 @@ public partial class Walk : CharacterState
     }
     public override void Enter()
     {
-		player.playerModel.Walk();
+		player.visual.Walk();
     }
     public override void Exit()
     {

@@ -34,8 +34,14 @@ public partial class InputGatherer : Node
 			input.inputActions.Add("walk");
 		//if(Input.IsActionPressed("attack"))
 		//	input.inputActions.Add("Attack");
-		if(Input.IsActionPressed("jump"))
+		if(Input.IsActionPressed("jump") && input.inputActions.Contains("walk"))
+		{
+			input.inputActions.Add("walk_jump");
+		}
+		else if (Input.IsActionPressed("jump"))
+		{
 			input.inputActions.Add("jump");
+		}
 		if(input.inputActions.Count == 0)
 			input.inputActions.Add("idle");
 		else

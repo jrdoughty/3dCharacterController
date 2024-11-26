@@ -2,7 +2,7 @@ namespace CharacterController;
 using Godot;
 using System;
 
-public partial class ModelController : Node3D
+public partial class Visuals : Node3D
 {
 	AnimationPlayer ap;
 

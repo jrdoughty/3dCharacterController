@@ -18,9 +18,9 @@ public partial class Model : Node
 		currentState = GetNode<CharacterState>("Idle");
 		states.Add("idle", GetNode<CharacterState>("Idle"));
 		states.Add("jump", GetNode<CharacterState>("Jump"));
+		states.Add("walk_jump", GetNode<CharacterState>("Jump"));
 		states.Add("walk", GetNode<CharacterState>("Walk"));
 		inputGatherer = GetNode<InputGatherer>("../Input");
-		currentState.Enter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

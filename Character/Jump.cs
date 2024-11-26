@@ -41,8 +41,10 @@ public partial class Jump : CharacterState
     }
     public override void Enter()
     {
-		player.playerModel.Jump();
+		player.visual.Jump();
+		velocity = player.Velocity;
 		velocity.Y += player.JumpImpulse;
+		player.Velocity = velocity;
 		GD.Print("Jumping");
     }
     public override void Exit()

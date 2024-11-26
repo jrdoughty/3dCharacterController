@@ -12,7 +12,7 @@ public partial class Player : CharacterBody3D
 	[Export] public float RotationSpeed = 10f;
 	[Export] public float JumpImpulse = 3f;
 
-	[Export] public ModelController playerModel;
+	[Export] public Visuals visual;
 
 	
 	private Node3D pivot;
@@ -32,31 +32,18 @@ public partial class Player : CharacterBody3D
 		base._PhysicsProcess(delta);
 		pivot.Rotation = inputGatherer.getNewPivotRotation(pivot.Rotation,  delta);
 
-
-		
-
-		//Velocity = Velocity.MoveToward(Vector3.Down * GetGravity(), GetGravity().Y * (float)delta);
-
-		/*bool isJumping = Input.IsActionJustPressed("jump");// && IsOnFloor();
-
-		if (isJumping)
-		{
-			velocity.Y += JumpImpulse;
-			GD.Print("Jumping");
-		}*/
-		GD.Print(Velocity);
 		MoveAndSlide();
 	}
     public void UpdateRotation(float targetAngle ,float delta)
     {
         // Calculate the shortest angle difference
-        float currentAngle = playerModel.Rotation.Y;
+        float currentAngle = visual.Rotation.Y;
         float angleDifference = Mathf.Wrap(targetAngle - currentAngle, -Mathf.Pi, Mathf.Pi);
 
         // Calculate the new target rotation
         float newAngle = currentAngle + angleDifference * RotationSpeed * (float)delta;
 
         // Apply the rotation
-        playerModel.Rotation = new Vector3(0, newAngle, 0);
+        visual.Rotation = new Vector3(0, newAngle, 0);
     }
 }

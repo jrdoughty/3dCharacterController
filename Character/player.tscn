@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://pallettelimiting.gdshader" id="3_jcdw5"]
 [ext_resource type="Texture2D" uid="uid://cig161ebvnn3q" path="res://icon.svg" id="4_2mecj"]
 [ext_resource type="PackedScene" uid="uid://75tmsg38pnbq" path="res://Character/player_character.tscn" id="5_lc4pd"]
-[ext_resource type="Script" path="res://Character/ModelController.cs" id="6_dlm3y"]
+[ext_resource type="Script" path="res://Character/Visuals.cs" id="6_dlm3y"]
 [ext_resource type="Script" path="res://Character/InputGatherer.cs" id="7_befft"]
 [ext_resource type="Script" path="res://Character/Model.cs" id="8_kjchl"]
 [ext_resource type="Script" path="res://Character/Walk.cs" id="9_8ytvh"]
@@ -17,14 +17,14 @@ radius = 0.275171
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdu4d"]
 shader = ExtResource("3_jcdw5")
 
-[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "playerModel", "inputGatherer")]
+[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "inputGatherer")]
 script = ExtResource("1_8i4rs")
 Camera = NodePath("CameraPivot/SpringArm3D/PlayerCamera")
 MoveSpeed = 5.0
 acceleration = 2.0
 RotationSpeed = 2.0
 JumpImpulse = 20.0
-playerModel = NodePath("PlayerModel")
+visual = NodePath("Visual")
 inputGatherer = NodePath("Input")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -49,7 +49,7 @@ position = Vector2(273, 189)
 scale = Vector2(10, 7)
 texture = ExtResource("4_2mecj")
 
-[node name="PlayerModel" parent="." instance=ExtResource("5_lc4pd")]
+[node name="Visual" parent="." instance=ExtResource("5_lc4pd")]
 unique_name_in_owner = true
 script = ExtResource("6_dlm3y")
 

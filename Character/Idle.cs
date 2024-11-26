@@ -16,16 +16,11 @@ public partial class Idle : CharacterState
 
     public override void Update(InputPackage input, double delta)
     {
-        return;
-		float yVelocity = velocity.Y;
-		velocity = velocity.MoveToward(Vector3.Zero, player.acceleration * (float)delta);
-		velocity.Y = 0;
-		velocity.Y = yVelocity + player.GetGravity().Y * (float)delta;
-		player.Velocity = velocity;
     }
     public override void Enter()
     {
-        player.playerModel.Idle();
+        player.visual.Idle();
+        player.Velocity = Vector3.Zero;
     }
     public override void Exit()
     {
