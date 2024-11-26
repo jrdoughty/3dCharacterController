@@ -9,6 +9,7 @@ public partial class CharacterState : Node
     protected Player player;
     private string animation;
     public int staminaCost = 0;
+    public string stateName;
 
     public override void _Ready()
     {

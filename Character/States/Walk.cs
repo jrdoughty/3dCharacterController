@@ -6,6 +6,11 @@ public partial class Walk : CharacterState
 {
 	public Vector3 velocity;
 	private Vector3 lastMovementDirection = Vector3.Back;
+
+	public Walk()
+	{
+		stateName = "Walk";
+	}
     public override string CheckRelevance(InputPackage input)
     {
 		if(input.inputDirection == Vector2.Zero)

@@ -6,6 +6,10 @@ public partial class Idle : CharacterState
 {
 	public Vector3 velocity;
 
+    public Idle()
+    {
+        stateName = "Idle";
+    }
     public override string CheckRelevance(InputPackage input)
     {
 		input.inputActions.Sort(PrioritySort);

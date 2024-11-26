@@ -6,6 +6,11 @@ public partial class Jump : CharacterState
 {
 	public Vector3 velocity;
 	private Vector3 lastMovementDirection = Vector3.Back;
+
+	public Jump()
+	{
+		stateName = "Jump";
+	}
     public override string CheckRelevance(InputPackage input)
     {
 		if(player.IsOnFloor() && player.Velocity.Y == 0)
