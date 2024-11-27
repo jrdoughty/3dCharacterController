@@ -25,19 +25,23 @@ public partial class HumanStates : Node
 	public override void _Ready()
 	{
 		player = GetParent<Model>().GetParent<Player>();
-		foreach(CharacterState state in GetChildren())
+		foreach(Node node in GetChildren())
 		{
-			states.Add(state.stateName.ToLower(), state);
-			state.combat = combat;
-			state.resources = resources;
-			state.SetPlayer(player);
-			state.animator = animator;
-			state.skeleton = skeleton;
-			state.stateDataRepo = stateDataRepo;
-			state.container = this;
-			state.area_awareness = area_awareness;
-			state.legs = legs;
-			state.AssignCombos();
+			if(node is CharacterState)
+			{
+				CharacterState state = (CharacterState)node;
+				states.Add(state.stateName.ToLower(), state);
+				state.combat = combat;
+				state.resources = resources;
+				state.SetPlayer(player);
+				state.animator = animator;
+				state.skeleton = skeleton;
+				state.stateDataRepo = stateDataRepo;
+				state.container = this;
+				state.area_awareness = area_awareness;
+				state.legs = legs;
+				state.AssignCombos();
+			}
 		}
 	}
 

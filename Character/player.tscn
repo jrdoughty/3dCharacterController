@@ -25,7 +25,7 @@ albedo_color = Color(1, 0.286275, 0.247059, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1rd24"]
 
-[node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "collider", "inputGatherer")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "collider", "inputGatherer")]
 script = ExtResource("1_8i4rs")
 Camera = NodePath("CameraPivot/SpringArm3D/PlayerCamera")
 MoveSpeed = 5.0
@@ -82,6 +82,7 @@ radius = 0.2
 material = SubResource("StandardMaterial3D_4perq")
 
 [node name="Root" parent="Model" index="3"]
+transform = Transform3D(0.00768607, 0.000497087, -0.00637788, -2.01881e-06, 0.00996995, 0.000774617, 0.00639722, -0.000594089, 0.00766307, -0.239115, 0.953821, -0.0206409)
 bone_name = "mixamorig_Hips"
 bone_idx = 0
 external_skeleton = NodePath("../../Visual/Armature/Skeleton3D")
@@ -91,8 +92,10 @@ external_skeleton = NodePath("../../Visual/Armature/Skeleton3D")
 [node name="HitBoxCollider" type="CollisionShape3D" parent="Model/Root/HitBox"]
 shape = SubResource("CapsuleShape3D_1rd24")
 
-[node name="SplitBodyAnimator" type="Node" parent="Model"]
+[node name="SplitBodyAnimator" type="Node" parent="Model" node_paths=PackedStringArray("model", "skeleton")]
 script = ExtResource("8_4qaky")
+model = NodePath("..")
+skeleton = NodePath("../../Visual/Armature/Skeleton3D")
 
 [node name="Torso" type="AnimationPlayer" parent="Model/SplitBodyAnimator"]
 
