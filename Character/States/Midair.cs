@@ -44,16 +44,16 @@ public partial class Midair : CharacterState
 		float targetAngle = Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up);
 		player.UpdateRotation(targetAngle, (float)delta);
     }
-    public override void Enter()
+    protected override void OnEnterStateInternal()
     {
 		player.visual.Jump();
 		velocity = player.Velocity;
 		velocity.Y += player.JumpImpulse;
 		player.Velocity = velocity;
-		GD.Print("Jumping");
+		GD.Print("Midair");
     }
-    public override void Exit()
+    protected override void OnExitStateInternal()
     {
-        GD.Print("Exiting Jump");
+        GD.Print("Exiting Midair");
     }
 }

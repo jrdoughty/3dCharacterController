@@ -21,12 +21,12 @@ public partial class Idle : CharacterState
     public override void Update(InputPackage input, double delta)
     {
     }
-    public override void Enter()
+    protected override void OnEnterStateInternal()
     {
         player.visual.Idle();
         player.Velocity = Vector3.Zero;
     }
-    public override void Exit()
+    protected override void OnExitStateInternal()
     {
     }
 }

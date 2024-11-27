@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bon1btf8ojfay"]
+[gd_scene load_steps=12 format=3 uid="uid://bon1btf8ojfay"]
 
 [ext_resource type="Script" path="res://Character/Model.cs" id="1_j41hh"]
 [ext_resource type="Script" path="res://Character/States/Idle.cs" id="2_i5vqc"]
@@ -7,7 +7,10 @@
 [ext_resource type="Script" path="res://Character/HumanoidResources.cs" id="5_kwhih"]
 [ext_resource type="Script" path="res://Character/States/HumanStates.cs" id="6_gwrjx"]
 [ext_resource type="Script" path="res://Character/AreaAwareness.cs" id="7_b0rvs"]
+[ext_resource type="Script" path="res://Character/States/StateDataRepository.cs" id="7_m6vkq"]
 [ext_resource type="Script" path="res://Character/Downcast.cs" id="8_rfdc2"]
+[ext_resource type="Script" path="res://Character/States/StateDataStorage.cs" id="8_ttjms"]
+[ext_resource type="Script" path="res://Character/Combat.cs" id="9_gtwxw"]
 
 [node name="Model" type="Node"]
 script = ExtResource("1_j41hh")
@@ -15,8 +18,11 @@ script = ExtResource("1_j41hh")
 [node name="Resources" type="Node" parent="."]
 script = ExtResource("5_kwhih")
 
-[node name="States" type="Node" parent="."]
+[node name="States" type="Node" parent="." node_paths=PackedStringArray("resources", "combat", "area_awareness")]
 script = ExtResource("6_gwrjx")
+resources = NodePath("../Resources")
+combat = NodePath("../Combat")
+area_awareness = NodePath("../AreaAwareness")
 
 [node name="Idle" type="Node" parent="States"]
 script = ExtResource("2_i5vqc")
@@ -27,6 +33,12 @@ script = ExtResource("3_puvet")
 [node name="Jump" type="Node" parent="States"]
 script = ExtResource("4_3mqdd")
 
+[node name="StateData" type="Node" parent="States"]
+script = ExtResource("7_m6vkq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="States/StateData"]
+script = ExtResource("8_ttjms")
+
 [node name="AreaAwareness" type="Node" parent="."]
 script = ExtResource("7_b0rvs")
 
@@ -34,13 +46,16 @@ script = ExtResource("7_b0rvs")
 target_position = Vector3(0, -100, 0)
 collision_mask = 2
 script = ExtResource("8_rfdc2")
-rootAttachment = NodePath("../../BoneAttachment3D")
+rootAttachment = NodePath("../../Root")
 
 [node name="START" type="CSGSphere3D" parent="AreaAwareness/Downcast"]
 
 [node name="END" type="CSGSphere3D" parent="AreaAwareness/Downcast"]
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
+[node name="Root" type="BoneAttachment3D" parent="."]
 bone_name = "mixamoorgin_hips"
 use_external_skeleton = true
 external_skeleton = NodePath("")
+
+[node name="Combat" type="Node" parent="."]
+script = ExtResource("9_gtwxw")

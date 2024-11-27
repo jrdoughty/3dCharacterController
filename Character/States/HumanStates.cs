@@ -6,9 +6,21 @@ using System.Collections.Generic;
 public partial class HumanStates : Node
 {
 	public Dictionary<string, CharacterState> states = new Dictionary<string, CharacterState>();
+	[Export]
 	public HumanoidResources resources;
+	[Export]
 	public Combat combat;
 	public Player player;
+	[Export] 
+	public Legs legs;
+	[Export] 
+	public StateDataRepository stateDataRepo;
+	[Export] 
+	public AreaAwareness area_awareness;
+	[Export] 
+	public Skeleton3D skeleton;
+	[Export] 
+	public SplitBodyAnimator animator;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -19,6 +31,12 @@ public partial class HumanStates : Node
 			state.combat = combat;
 			state.resources = resources;
 			state.SetPlayer(player);
+			state.animator = animator;
+			state.skeleton = skeleton;
+			state.stateDataRepo = stateDataRepo;
+			state.container = this;
+			state.area_awareness = area_awareness;
+			state.legs = legs;
 			state.AssignCombos();
 		}
 	}
@@ -34,5 +52,10 @@ public partial class HumanStates : Node
 		{
 			state.SetPlayer(p);
 		}
+	}
+
+	public CharacterState GetStateByName(string state)
+	{
+		return states[state];
 	}
 }

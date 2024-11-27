@@ -44,7 +44,7 @@ public partial class Jump : CharacterState
 		float targetAngle = Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up);
 		player.UpdateRotation(targetAngle, (float)delta);
     }
-    public override void Enter()
+    protected override void OnEnterStateInternal()
     {
 		player.visual.Jump();
 		velocity = player.Velocity;
@@ -52,7 +52,7 @@ public partial class Jump : CharacterState
 		player.Velocity = velocity;
 		GD.Print("Jumping");
     }
-    public override void Exit()
+    protected override void OnExitStateInternal()
     {
         GD.Print("Exiting Jump");
     }

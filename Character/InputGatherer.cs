@@ -44,8 +44,8 @@ public partial class InputGatherer : Node
 		}
 		if(input.inputActions.Count == 0)
 			input.inputActions.Add("idle");
-		else
-			GD.Print(input.inputActions[0]);
+		//else
+		//	GD.Print(input.inputActions[0]);
 		return input;
 	}
 	

@@ -2,10 +2,10 @@ namespace CharacterController;
 using Godot;
 using System;
 
-public partial class ReiposteCombo : Combo
+public partial class RiposteCombo : Combo
 {
     [Export] public string primaryInput;
-    public override bool isTriggered(InputPackage input)
+    public override bool IsTriggered(InputPackage input)
     {
         if(input.inputActions.Contains(primaryInput))
             return true;

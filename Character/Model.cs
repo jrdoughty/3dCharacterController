@@ -11,6 +11,8 @@ public partial class Model : Node
 	public HumanStates states;
 	public CharacterState currentState;
 	public Player player;
+	public Legs legs;
+	public SplitBodyAnimator animator;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -21,6 +23,8 @@ public partial class Model : Node
 		states = GetNode<HumanStates>("States");
 		states.SetPlayer(GetParent<Player>());
 		currentState = states.GetNode<CharacterState>("Idle");
+		legs = GetNode<Legs>("Legs");
+		animator = GetNode<SplitBodyAnimator>("SplitBodyAnimator");
 		player = GetParent<Player>();
 	}
 
@@ -35,7 +39,6 @@ public partial class Model : Node
 		string relevance = currentState.CheckRelevance(input);
 		if(relevance != "valid")
 		{
-			GD.Print("Switching to " + relevance);
 			SwitchState(relevance);
 		}
 		currentState.Update(input, delta);
@@ -43,8 +46,8 @@ public partial class Model : Node
 
 	public void SwitchState(string state)
 	{
-		currentState.Exit();
+		currentState.OnExitState();
 		currentState = states.states[state];
-		currentState.Enter();
+		currentState.OnEnterState();
 	}
 }

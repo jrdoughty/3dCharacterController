@@ -4,9 +4,9 @@ using System;
 
 public partial class Combo : Node
 {
-    protected CharacterState state;
+    public CharacterState state;
     [Export] public string triggeredState;
-    public virtual bool isTriggered(InputPackage input)
+    public virtual bool IsTriggered(InputPackage input)
     {
         return false;
     }

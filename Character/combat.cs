@@ -33,14 +33,14 @@ public partial class Combat : Node
     {
         if(input.combatActions.Count > 0)
         {
-            input.combatActions.Sort(combatActionPrioritySort);
+            input.combatActions.Sort(CombatActionPrioritySort);
             String bestAction = input.combatActions[0];
             String translatedStateName = "";
             input.inputActions.Add(translatedStateName);
         }
     }
 
-    static int combatActionPrioritySort(string a, string b)
+    static int CombatActionPrioritySort(string a, string b)
     {
         if(inputsPriority[a] > inputsPriority[b])
             return 1;

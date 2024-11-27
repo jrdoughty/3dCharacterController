@@ -4,8 +4,8 @@ using System;
 
 public partial class AreaAwareness : Node
 {
-	Vector3 lastPushbackVector;
-	InputPackage lastInputPackage;
+	public Vector3 lastPushbackVector;
+	public InputPackage lastInputPackage;
 	public RayCast3D downcast;
 
 	// Called when the node enters the scene tree for the first time.

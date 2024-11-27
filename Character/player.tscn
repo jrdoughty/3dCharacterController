@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://w4so4chwbsuv"]
+[gd_scene load_steps=16 format=3 uid="uid://w4so4chwbsuv"]
 
 [ext_resource type="Script" path="res://Character/Player.cs" id="1_8i4rs"]
 [ext_resource type="Shader" path="res://pallettelimiting.gdshader" id="3_jcdw5"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://Character/Visuals.cs" id="6_dlm3y"]
 [ext_resource type="PackedScene" uid="uid://bon1btf8ojfay" path="res://Character/model.tscn" id="7_08lj0"]
 [ext_resource type="Script" path="res://Character/InputGatherer.cs" id="7_befft"]
+[ext_resource type="Script" path="res://Character/SplitBodyAnimator.cs" id="8_4qaky"]
+[ext_resource type="Script" path="res://Character/Legs.cs" id="9_rtqyd"]
+[ext_resource type="Script" path="res://Character/States/Legs/WalkableGesture.cs" id="10_x48gr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vexg6"]
 radius = 0.275171
@@ -19,6 +22,8 @@ albedo_color = Color(0.282353, 1, 0.239216, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4perq"]
 albedo_color = Color(1, 0.286275, 0.247059, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1rd24"]
 
 [node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "collider", "inputGatherer")]
 script = ExtResource("1_8i4rs")
@@ -62,17 +67,42 @@ script = ExtResource("7_befft")
 
 [node name="Model" parent="." instance=ExtResource("7_08lj0")]
 
+[node name="States" parent="Model" index="1" node_paths=PackedStringArray("legs", "stateDataRepo", "skeleton", "animator")]
+legs = NodePath("../Legs")
+stateDataRepo = NodePath("StateData")
+skeleton = NodePath("../../Visual/Armature/Skeleton3D")
+animator = NodePath("../SplitBodyAnimator")
+
 [node name="START" parent="Model/AreaAwareness/Downcast" index="0"]
+radius = 0.3
 material = SubResource("StandardMaterial3D_tg7lw")
 
 [node name="END" parent="Model/AreaAwareness/Downcast" index="1"]
+radius = 0.2
 material = SubResource("StandardMaterial3D_4perq")
 
-[node name="BoneAttachment3D" parent="Model" index="3"]
-transform = Transform3D(0.00768607, 0.000497087, -0.00637788, -2.01881e-06, 0.00996995, 0.000774617, 0.00639722, -0.000594089, 0.00766307, -0.239115, 0.953821, -0.0206409)
+[node name="Root" parent="Model" index="3"]
 bone_name = "mixamorig_Hips"
 bone_idx = 0
 external_skeleton = NodePath("../../Visual/Armature/Skeleton3D")
+
+[node name="HitBox" type="Area3D" parent="Model/Root" index="0"]
+
+[node name="HitBoxCollider" type="CollisionShape3D" parent="Model/Root/HitBox"]
+shape = SubResource("CapsuleShape3D_1rd24")
+
+[node name="SplitBodyAnimator" type="Node" parent="Model"]
+script = ExtResource("8_4qaky")
+
+[node name="Torso" type="AnimationPlayer" parent="Model/SplitBodyAnimator"]
+
+[node name="Legs" type="AnimationPlayer" parent="Model/SplitBodyAnimator"]
+
+[node name="Legs" type="Node" parent="Model"]
+script = ExtResource("9_rtqyd")
+
+[node name="WalkableGesture" type="Node" parent="Model/Legs"]
+script = ExtResource("10_x48gr")
 
 [node name="Controller" type="Node" parent="."]
 

@@ -25,9 +25,9 @@ public partial class HumanoidResources : Node
 	public override void _Process(double delta)
 	{
 	}
-	public void Update(float delta)
+	public void Update(double delta)
 	{
-		GainStamina(stamina_regeneration_rate * delta);
+		GainStamina(stamina_regeneration_rate * (float)delta);
 	}
 
 	public void PayResourceCost(CharacterState cs)
@@ -58,7 +58,7 @@ public partial class HumanoidResources : Node
 			health -= amount;
 			if (health < 1)
 			{
-				model.currentState.TryForceMove("death");
+				model.currentState.TryForceState("death");
 			}
 		}
 	}

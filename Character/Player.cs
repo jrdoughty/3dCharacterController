@@ -16,8 +16,8 @@ public partial class Player : CharacterBody3D
 	[Export] public CollisionShape3D collider;
 
 	
-	private Node3D cameraMount;
-	private Model model;
+	public Node3D cameraMount;
+	public Model model;
 	[Export] public InputGatherer inputGatherer;
 
 

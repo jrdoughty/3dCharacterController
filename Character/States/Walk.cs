@@ -46,11 +46,11 @@ public partial class Walk : CharacterState
 		float targetAngle = Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up);
 		player.UpdateRotation(targetAngle, (float)delta);
     }
-    public override void Enter()
+    protected override void OnEnterStateInternal()
     {
 		player.visual.Walk();
     }
-    public override void Exit()
+    protected override void OnExitStateInternal()
     {
         //GD.Print("Exiting Walk");
     }
