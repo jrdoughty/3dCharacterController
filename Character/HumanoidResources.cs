@@ -58,7 +58,7 @@ public partial class HumanoidResources : Node
 			health -= amount;
 			if (health < 1)
 			{
-				model.states.currentState.TryForceMove("death");
+				model.currentState.TryForceMove("death");
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bon1btf8ojfay"]
+[gd_scene load_steps=9 format=3 uid="uid://bon1btf8ojfay"]
 
 [ext_resource type="Script" path="res://Character/Model.cs" id="1_j41hh"]
 [ext_resource type="Script" path="res://Character/States/Idle.cs" id="2_i5vqc"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Character/States/Jump.cs" id="4_3mqdd"]
 [ext_resource type="Script" path="res://Character/HumanoidResources.cs" id="5_kwhih"]
 [ext_resource type="Script" path="res://Character/States/HumanStates.cs" id="6_gwrjx"]
+[ext_resource type="Script" path="res://Character/AreaAwareness.cs" id="7_b0rvs"]
+[ext_resource type="Script" path="res://Character/Downcast.cs" id="8_rfdc2"]
 
 [node name="Model" type="Node"]
 script = ExtResource("1_j41hh")
@@ -24,3 +26,21 @@ script = ExtResource("3_puvet")
 
 [node name="Jump" type="Node" parent="States"]
 script = ExtResource("4_3mqdd")
+
+[node name="AreaAwareness" type="Node" parent="."]
+script = ExtResource("7_b0rvs")
+
+[node name="Downcast" type="RayCast3D" parent="AreaAwareness" node_paths=PackedStringArray("rootAttachment")]
+target_position = Vector3(0, -100, 0)
+collision_mask = 2
+script = ExtResource("8_rfdc2")
+rootAttachment = NodePath("../../BoneAttachment3D")
+
+[node name="START" type="CSGSphere3D" parent="AreaAwareness/Downcast"]
+
+[node name="END" type="CSGSphere3D" parent="AreaAwareness/Downcast"]
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
+bone_name = "mixamoorgin_hips"
+use_external_skeleton = true
+external_skeleton = NodePath("")

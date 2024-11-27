@@ -6,10 +6,13 @@ using Godot;
 
 public partial class CharacterState : Node
 {
-    protected Player player;
+    public Player player;
     private string animation;
     public int staminaCost = 0;
     public string stateName;
+    public List<Combo> combos = new List<Combo>();
+    public Combat combat;
+	public HumanoidResources resources;
 
     public override void _Ready()
     {
@@ -25,6 +28,14 @@ public partial class CharacterState : Node
         {"die", 6}
     };
     
+    public void AssignCombos()
+    {
+        foreach(Combo combo in GetChildren())
+        {
+            combos.Add(combo);
+        }
+    }
+
     public void SetPlayer(Player p)
     {
         player = p;

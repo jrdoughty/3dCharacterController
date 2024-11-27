@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://w4so4chwbsuv"]
+[gd_scene load_steps=12 format=3 uid="uid://w4so4chwbsuv"]
 
 [ext_resource type="Script" path="res://Character/Player.cs" id="1_8i4rs"]
 [ext_resource type="Shader" path="res://pallettelimiting.gdshader" id="3_jcdw5"]
@@ -13,6 +13,12 @@ radius = 0.275171
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdu4d"]
 shader = ExtResource("3_jcdw5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tg7lw"]
+albedo_color = Color(0.282353, 1, 0.239216, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4perq"]
+albedo_color = Color(1, 0.286275, 0.247059, 1)
 
 [node name="Node3D" type="CharacterBody3D" node_paths=PackedStringArray("Camera", "visual", "collider", "inputGatherer")]
 script = ExtResource("1_8i4rs")
@@ -56,4 +62,19 @@ script = ExtResource("7_befft")
 
 [node name="Model" parent="." instance=ExtResource("7_08lj0")]
 
+[node name="START" parent="Model/AreaAwareness/Downcast" index="0"]
+material = SubResource("StandardMaterial3D_tg7lw")
+
+[node name="END" parent="Model/AreaAwareness/Downcast" index="1"]
+material = SubResource("StandardMaterial3D_4perq")
+
+[node name="BoneAttachment3D" parent="Model" index="3"]
+transform = Transform3D(0.00768607, 0.000497087, -0.00637788, -2.01881e-06, 0.00996995, 0.000774617, 0.00639722, -0.000594089, 0.00766307, -0.239115, 0.953821, -0.0206409)
+bone_name = "mixamorig_Hips"
+bone_idx = 0
+external_skeleton = NodePath("../../Visual/Armature/Skeleton3D")
+
 [node name="Controller" type="Node" parent="."]
+
+[editable path="Visual"]
+[editable path="Model"]
