@@ -9,6 +9,7 @@ public partial class Idle : CharacterState
     public Idle()
     {
         stateName = "Idle";
+        animation = "idle";
     }
     public override string CheckRelevance(InputPackage input)
     {

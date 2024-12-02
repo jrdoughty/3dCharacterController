@@ -8,18 +8,25 @@ public partial class Visuals : Node3D
     Model model;
     Label staminaLabel;
     Label healthLabel;
+	MeshInstance3D joints;
+	MeshInstance3D surface;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ap = GetNode<AnimationPlayer>("AnimationPlayer");
+		//ap = GetNode<AnimationPlayer>("AnimationPlayer");
         staminaLabel = GetNode<Label>("StaminaBar");
         healthLabel = GetNode<Label>("HealthBar");
+		joints = GetNode<MeshInstance3D>("Joints");
+		surface = GetNode<MeshInstance3D>("Surface");
 	}
 
     public void AcceptModel(Model model)
     {
         this.model = model;
+		NodePath skeletonPath = model.skeleton.GetPath();
+		joints.Skeleton = skeletonPath;
+		surface.Skeleton = skeletonPath;
     }
 
     public void UpdateResourceInterface()
@@ -37,13 +44,13 @@ public partial class Visuals : Node3D
 	public void Idle()
 	{
 		// Play idle animation
-		ap.Play("idle");
+		//ap.Play("idle");
 	}
 
 	public void Walk()
 	{
 		// Play walk animation
-		ap.Play("walk forward");
+		//ap.Play("walk forward");
 	}
 
 	public void Run()
@@ -64,6 +71,6 @@ public partial class Visuals : Node3D
 	public void Fall()
 	{
 		// Play fall animation
-		ap.Play("fall idle");
+		//ap.Play("fall idle");
 	}
 }

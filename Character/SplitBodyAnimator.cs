@@ -55,12 +55,12 @@ public partial class SplitBodyAnimator : Node
 
     private void SetLegsAnimation(string animation)
     {
-        legsAnimator.Play(animation + "_legs");
+        legsAnimator.Play("legs_controller_lib/"+animation + "_legs");
     }
 
     private void SetTorsoAnimation(string animation)
     {
-        torso_animator.Play(animation + "_torso");
+        torso_animator.Play("torso_controller_lib/"+animation + "_torso");
     }
 
     private void SynchronizeIfNeeded()

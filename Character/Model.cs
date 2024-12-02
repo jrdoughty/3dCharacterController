@@ -13,11 +13,13 @@ public partial class Model : Node
 	public Player player;
 	public Legs legs;
 	public SplitBodyAnimator animator;
+	public Skeleton3D skeleton;
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		skeleton = GetNode<Skeleton3D>("GeneralSkeleton");
 		inputGatherer = GetNode<InputGatherer>("../Input");
 		resources = GetNode<HumanoidResources>("Resources");
 		states = GetNode<HumanStates>("States");

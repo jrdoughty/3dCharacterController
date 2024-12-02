@@ -10,6 +10,7 @@ public partial class Walk : CharacterState
 	public Walk()
 	{
 		stateName = "Walk";
+        animation = "walk";
 	}
     public override string CheckRelevance(InputPackage input)
     {
