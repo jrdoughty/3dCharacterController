@@ -3,7 +3,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Model : Node
+public partial class Model : Node3D
 {
 
 	InputGatherer inputGatherer;
@@ -14,6 +14,8 @@ public partial class Model : Node
 	public Legs legs;
 	public SplitBodyAnimator animator;
 	public Skeleton3D skeleton;
+	public Combat combat;
+	public AreaAwareness areaAwareness;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -28,6 +30,8 @@ public partial class Model : Node
 		legs = GetNode<Legs>("Legs");
 		animator = GetNode<SplitBodyAnimator>("SplitBodyAnimator");
 		player = GetParent<Player>();
+		combat = GetNode<Combat>("Combat");
+		areaAwareness = GetNode<AreaAwareness>("AreaAwareness");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,16 +42,22 @@ public partial class Model : Node
 	}
     public virtual void Update(InputPackage input, double delta)
     {
+
+		input = combat.Contextualize(input);
+
+		areaAwareness.lastInputPackage = input;
 		string relevance = currentState.CheckRelevance(input);
 		if(relevance != "valid")
 		{
 			SwitchState(relevance);
 		}
+		currentState.UpdateResources(delta);
 		currentState.Update(input, delta);
     }
 
 	public void SwitchState(string state)
 	{
+		//GD.Print("Switching to state: " + state + " from state: " + currentState.stateName);
 		currentState.OnExitState();
 		currentState = states.states[state];
 		currentState.OnEnterState();

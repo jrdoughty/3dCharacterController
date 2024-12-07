@@ -15,7 +15,7 @@ public partial class Jump : CharacterState
     {
 		if(player.IsOnFloor() && player.Velocity.Y == 0)
 		{
-			input.inputActions.Sort(PrioritySort);
+			input.inputActions.Sort(container.PrioritySort);
 			return input.inputActions[0];
 		}
 		return "valid";

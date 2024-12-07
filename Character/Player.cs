@@ -47,5 +47,6 @@ public partial class Player : CharacterBody3D
 
         // Apply the rotation
         visual.Rotation = new Vector3(0, newAngle, 0);
+		model.skeleton.Rotation = visual.Rotation;
     }
 }

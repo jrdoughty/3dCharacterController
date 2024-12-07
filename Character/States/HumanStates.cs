@@ -62,4 +62,13 @@ public partial class HumanStates : Node
 	{
 		return states[state];
 	}
+	public int PrioritySort(string a, string b)
+    {
+        if(states[a].priority > states[b].priority)
+            return 1;
+        else if(states[a].priority < states[b].priority)
+            return -1;
+        else
+            return 0;
+    }
 }

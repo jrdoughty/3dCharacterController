@@ -10,7 +10,7 @@ public partial class Weapon : Area3D
     [Export] public Model holder;
     [Export] public float baseDamage;
     public Dictionary<string,string> basicAttacks;
-    public HitData GetHitData()
+    public virtual HitData GetHitData()
     {
         GD.Print("default weapon hit data");
         return HitData.Blank();

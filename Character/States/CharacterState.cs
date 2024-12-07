@@ -7,26 +7,31 @@ using Godot;
 public partial class CharacterState : Node
 {
     public Player player;
+    public SplitBodyAnimator animator;
+    public Skeleton3D skeleton;
+	public HumanoidResources resources;
+    public Combat combat;
+    public StateDataRepository stateDataRepo;
+    public HumanStates container;
+    public AreaAwareness area_awareness;
+    public Legs legs;
+
     [Export]
     public string animation;
     [Export]
-    public int staminaCost = 0;
+    public string stateName;
     [Export]
     public int priority = 0;
     [Export]
     public string backendAnimation;
     [Export]
-    public string stateName;
-    public List<Combo> combos = new List<Combo>();
-    public Combat combat;
-	public HumanoidResources resources;
-    public SplitBodyAnimator animator;
-    public Skeleton3D skeleton;
-    public StateDataRepository stateDataRepo;
-    public HumanStates container;
-    public AreaAwareness area_awareness;
-    public Legs legs;
+    public float trackingAngularSpeed = 10.0f;
     private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+    [Export]
+    public float staminaCost = 0f;
+
+    public List<Combo> combos = new List<Combo>();
+    
     private double enterStateTime;
     private Vector3 initial_position;
     private float frameLength = 0.016f;
@@ -38,7 +43,6 @@ public partial class CharacterState : Node
     private string forcedMove = "nonexistent forced move, drop error please";
 
     private float DURATION;
-    private float trackingAngularSpeed = 10.0f;
 
 
     public override void _Ready()
@@ -65,15 +69,7 @@ public partial class CharacterState : Node
         return statePriority;
     }
 
-    public int PrioritySort(string actionA, string actionB)
-    {
-        if(statePriority[actionA] > statePriority[actionB])
-            return 1;
-        else if(statePriority[actionA] < statePriority[actionB])
-            return -1;
-        else
-            return 0;
-    }
+
 
     public virtual string CheckRelevance(InputPackage input)
     {

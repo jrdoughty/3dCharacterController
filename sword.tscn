@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwhpsirii052k"]
+
+[ext_resource type="Script" path="res://Weapons/Models/Sword.cs" id="1_bkhbs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k0bq1"]
+radius = 0.2
+
+[node name="Sword" type="Area3D"]
+script = ExtResource("1_bkhbs")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(0.04, 0.2, 0.04)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.763173, 0)
+shape = SubResource("CapsuleShape3D_k0bq1")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845297, 0)
+radius = 0.02
+height = 1.5

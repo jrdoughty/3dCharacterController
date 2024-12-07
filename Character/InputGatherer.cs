@@ -1,6 +1,7 @@
 namespace CharacterController;
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -8,6 +9,7 @@ public partial class InputGatherer : Node
 {
 	[Export] public float MouseSensitivity = .25f;
 	private Vector2 cameraInputDirection = new Vector2(0, 0);
+	List<String> simpleInputActions = new List<String>(){"roll","block","parry"};
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -29,11 +31,20 @@ public partial class InputGatherer : Node
 	{
 		InputPackage input = new InputPackage();
 		input.inputActions = new System.Collections.Generic.List<string>();
+		input.combatActions = new System.Collections.Generic.List<string>();
+
+		//input.inputActions.Add("idle");
+
 		input.inputDirection = Input.GetVector("left", "right", "forward", "back");
 		if(input.inputDirection != Vector2.Zero)
 			input.inputActions.Add("walk");
-		//if(Input.IsActionPressed("attack"))
-		//	input.inputActions.Add("Attack");
+			if(Input.IsActionPressed("run"))
+				input.inputActions.Add("run");
+		foreach(String action in simpleInputActions)
+		{
+			if(Input.IsActionPressed(action))
+				input.inputActions.Add(action);
+		}
 		if(Input.IsActionPressed("jump") && input.inputActions.Contains("walk"))
 		{
 			input.inputActions.Add("walk_jump");
@@ -42,10 +53,13 @@ public partial class InputGatherer : Node
 		{
 			input.inputActions.Add("jump");
 		}
+		if(Input.IsActionPressed("light_attack"))
+		{
+			input.combatActions.Add("light_attack_pressed");
+		}
 		if(input.inputActions.Count == 0)
 			input.inputActions.Add("idle");
-		//else
-		//	GD.Print(input.inputActions[0]);
+
 		return input;
 	}
 	

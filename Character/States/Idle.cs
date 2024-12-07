@@ -13,7 +13,7 @@ public partial class Idle : CharacterState
     }
     public override string CheckRelevance(InputPackage input)
     {
-		input.inputActions.Sort(PrioritySort);
+		input.inputActions.Sort(container.PrioritySort);
         if(input.inputActions[0] == "idle")
             return "valid";
         return input.inputActions[0];

@@ -16,7 +16,7 @@ public partial class Walk : CharacterState
     {
 		if(input.inputDirection == Vector2.Zero)
 		{
-			input.inputActions.Sort(PrioritySort);
+			input.inputActions.Sort(container.PrioritySort);
 			if(input.inputActions[0] == "walk")
 				return "valid";
 			return input.inputActions[0];
