@@ -593,77 +593,92 @@ script = ExtResource("8_ttjms")
 script = ExtResource("18_6unl8")
 animation = "run"
 stateName = "run"
+backendAnimation = "run_params"
 
 [node name="JumpRun" type="Node" parent="States"]
 script = ExtResource("19_s7jbd")
 SPEED = 1.5
 animation = "jump_run"
 stateName = "jump_run"
+backendAnimation = "jump_run_params"
 
 [node name="JumpWalk" type="Node" parent="States"]
 script = ExtResource("20_sdk7p")
 animation = "jump_walk"
 stateName = "jump_walk"
+backendAnimation = "jump_walk_params"
 
 [node name="Midair" type="Node" parent="States"]
 script = ExtResource("21_i2wus")
 animation = "midair"
 stateName = "midair"
+backendAnimation = "midair_params"
 
 [node name="LandingRun" type="Node" parent="States"]
 script = ExtResource("22_f5h8u")
 animation = "landing_run"
 stateName = "landing_run"
+backendAnimation = "landing_run_params"
 
 [node name="LandingWalk" type="Node" parent="States"]
 script = ExtResource("23_a2eoj")
 animation = "landing_walk"
 stateName = "landing_walk"
+backendAnimation = "landing_walk_params"
 
 [node name="Longsword1" type="Node" parent="States"]
 script = ExtResource("24_0mqmg")
 animation = "longsword_1"
 stateName = "longsword_1"
+backendAnimation = "longsword_1_params"
 
 [node name="Longsword2" type="Node" parent="States"]
 script = ExtResource("24_0mqmg")
 animation = "longsword_2"
 stateName = "longsword_2"
+backendAnimation = "longsword_2_params"
 
 [node name="Block" type="Node" parent="States"]
 script = ExtResource("25_s0qdc")
 animation = "block"
 stateName = "block"
+backendAnimation = "block_params"
 
 [node name="Roll" type="Node" parent="States"]
 script = ExtResource("26_005a6")
 animation = "roll"
 stateName = "roll"
+backendAnimation = "roll_params"
 
 [node name="Staggered" type="Node" parent="States"]
 script = ExtResource("27_5va28")
 animation = "staggered"
 stateName = "staggered"
+backendAnimation = "staggered_params"
 
 [node name="Parry" type="Node" parent="States"]
 script = ExtResource("28_l487i")
 animation = "parry"
 stateName = "parry"
+backendAnimation = "parry_params"
 
 [node name="Parried" type="Node" parent="States"]
 script = ExtResource("29_kmuqs")
 animation = "parried"
 stateName = "parried"
+backendAnimation = "parried_params"
 
 [node name="Death" type="Node" parent="States"]
 script = ExtResource("30_s5av5")
 animation = "death"
 stateName = "death"
+backendAnimation = "death_params"
 
 [node name="Riposte" type="Node" parent="States"]
 script = ExtResource("31_hu13d")
 animation = "riposte"
 stateName = "riposte"
+backendAnimation = "riposte_params"
 
 [node name="RightWrist" type="BoneAttachment3D" parent="."]
 transform = Transform3D(-8.0678e-08, -1, 1.19209e-07, -2.79397e-08, -1.19209e-07, -1, 1, -8.0678e-08, -2.79397e-08, -0.713332, 1.44057, -0.0554854)

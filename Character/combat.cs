@@ -35,7 +35,7 @@ public partial class Combat : Node
         {
             input.combatActions.Sort(CombatActionPrioritySort);
             String bestAction = input.combatActions[0];
-            String translatedStateName = "";
+            String translatedStateName = model.activeWeapon.basicAttacks[bestAction];
             input.inputActions.Add(translatedStateName);
         }
     }
