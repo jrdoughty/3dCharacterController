@@ -126,7 +126,7 @@ public partial class CharacterState : Node
             ProcessInputVector(input, delta);
         }
     }
-    public void ProcessInputVector(InputPackage input, double delta)
+    public virtual void ProcessInputVector(InputPackage input, double delta)
     {
         Vector3 inputDirection = (player.cameraMount.Basis * new Vector3(-input.inputDirection.X, 0, -input.inputDirection.Y)).Normalized();
         Vector3 face_direction = player.Basis.Z;
@@ -298,4 +298,5 @@ public partial class CharacterState : Node
             forcedMove = new_forcedMove;
         }
     }
+    	
 }

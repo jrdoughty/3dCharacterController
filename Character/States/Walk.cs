@@ -18,16 +18,16 @@ public partial class Walk : CharacterState
     {
 		player.MoveAndSlide();
     }
-	protected void ProcessInputVector(InputPackage input, float delta)
-	{
+    public override void ProcessInputVector(InputPackage input, double delta)
+    {
 		Vector3 inputDirection = (player.cameraMount.Basis * new Vector3(-input.inputDirection.X,0,-input.inputDirection.Y)).Normalized();
 		Vector3 faceDirection = player.Basis.Z;
 		float angle = faceDirection.SignedAngleTo(inputDirection, Vector3.Up);
 		Vector3 velocity;
 		if(Mathf.Abs(angle) > trackingAngularSpeed * delta)
 		{
-			velocity = faceDirection.Rotated(Vector3.Up,Math.Sign(angle) * trackingAngularSpeed * delta) * TURN_SPEED;
-			player.RotateY(Math.Sign(angle) * trackingAngularSpeed * delta);
+			velocity = faceDirection.Rotated(Vector3.Up,Math.Sign((float)angle) * trackingAngularSpeed * (float)delta) * TURN_SPEED;
+			player.RotateY(Math.Sign(angle) * trackingAngularSpeed * (float)delta);
 		}
 		else
 		{
@@ -35,5 +35,5 @@ public partial class Walk : CharacterState
 			player.RotateY(angle);
 		}
 		player.Velocity = velocity;
-	}
+    }
 }
