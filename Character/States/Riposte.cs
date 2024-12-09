@@ -4,13 +4,27 @@ using System;
 
 public partial class Riposte : CharacterState
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	private float hitDamage = 100;
+    public override void Update(InputPackage input, double delta)
+    {
+			player.model.activeWeapon.isAttacking = WorksBetween(2.2f,3.6f);
+    }
+	public override HitData FormHitData(Weapon weapon)
+    {
+		HitData hit = new HitData();
+		hit.damage = hitDamage;
+		hit.hitMoveAnimation = animation;
+		hit.isParryable = IsParryable();
+		hit.weapon = player.model.activeWeapon;
+		return hit;
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	
+    protected override void OnEnterStateInternal()
+    {
+    }
+	protected override void OnExitStateInternal()
 	{
+		player.model.activeWeapon.hitboxIgnoreList.Clear();
+		player.model.activeWeapon.isAttacking = false;
 	}
 }

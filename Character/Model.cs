@@ -16,6 +16,7 @@ public partial class Model : Node3D
 	public Skeleton3D skeleton;
 	public Combat combat;
 	public AreaAwareness areaAwareness;
+	public Weapon activeWeapon;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -32,6 +33,7 @@ public partial class Model : Node3D
 		player = GetParent<Player>();
 		combat = GetNode<Combat>("Combat");
 		areaAwareness = GetNode<AreaAwareness>("AreaAwareness");
+		activeWeapon = GetNode<Sword>("RightWrist/WeaponSocket/Sword");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,7 +49,7 @@ public partial class Model : Node3D
 
 		areaAwareness.lastInputPackage = input;
 		string relevance = currentState.CheckRelevance(input);
-		if(relevance != "valid")
+		if(relevance != "okay")
 		{
 			SwitchState(relevance);
 		}
@@ -62,4 +64,5 @@ public partial class Model : Node3D
 		currentState = states.states[state];
 		currentState.OnEnterState();
 	}
+	
 }

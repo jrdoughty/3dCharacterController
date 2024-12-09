@@ -4,55 +4,36 @@ using System;
 
 public partial class Walk : CharacterState
 {
-	public Vector3 velocity;
-	private Vector3 lastMovementDirection = Vector3.Back;
-
-	public Walk()
-	{
-		stateName = "Walk";
-        animation = "walk";
-	}
-    public override string CheckRelevance(InputPackage input)
+	[Export] float SPEED = 1.5f;
+	[Export] float TURN_SPEED = 1.0f;
+    public override string DefaultLifecycle(InputPackage input)
     {
-		if(input.inputDirection == Vector2.Zero)
-		{
-			input.inputActions.Sort(container.PrioritySort);
-			if(input.inputActions[0] == "walk")
-				return "valid";
-			return input.inputActions[0];
-		}
-		return "valid";
+        if(!player.IsOnFloor())
+        {
+            return "midair";
+        }
+        return BestInputThatCanBePaid(input);
     }
-
     public override void Update(InputPackage input, double delta)
     {
-		velocity = player.Velocity;
-        Vector2 raw_input = input.inputDirection;
-		Vector3 forward = player.Camera.GlobalBasis.Z;
-		Vector3 right = player.Camera.GlobalBasis.X;
-		Vector3 moveDirection = forward * raw_input.Y + right * raw_input.X;
-		moveDirection.Y = 0;
-		moveDirection = moveDirection.Normalized();
-
-		float yVelocity = velocity.Y;
-		velocity = velocity.MoveToward(moveDirection * player.MoveSpeed, player.acceleration * (float)delta);
-		velocity.Y = 0;
-		velocity.Y = yVelocity + player.GetGravity().Y * (float)delta;
-		player.Velocity = velocity;
-		if (moveDirection != Vector3.Zero)//Not as tutorial, so may need tweaked
+		player.MoveAndSlide();
+    }
+	protected void ProcessInputVector(InputPackage input, float delta)
+	{
+		Vector3 inputDirection = (player.cameraMount.Basis * new Vector3(-input.inputDirection.X,0,-input.inputDirection.Y)).Normalized();
+		Vector3 faceDirection = player.Basis.Z;
+		float angle = faceDirection.SignedAngleTo(inputDirection, Vector3.Up);
+		Vector3 velocity;
+		if(Mathf.Abs(angle) > trackingAngularSpeed * delta)
 		{
-			lastMovementDirection = moveDirection;
+			velocity = faceDirection.Rotated(Vector3.Up,Math.Sign(angle) * trackingAngularSpeed * delta) * TURN_SPEED;
+			player.RotateY(Math.Sign(angle) * trackingAngularSpeed * delta);
 		}
-		//RotateY(Vector3.Back.Rotated(Vector3.Up, Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up)));
-		float targetAngle = Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up);
-		player.UpdateRotation(targetAngle, (float)delta);
-    }
-    protected override void OnEnterStateInternal()
-    {
-		player.visual.Walk();
-    }
-    protected override void OnExitStateInternal()
-    {
-        //GD.Print("Exiting Walk");
-    }
+		else
+		{
+			velocity = faceDirection.Rotated(Vector3.Up,angle) * SPEED;
+			player.RotateY(angle);
+		}
+		player.Velocity = velocity;
+	}
 }

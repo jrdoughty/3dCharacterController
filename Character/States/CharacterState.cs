@@ -13,7 +13,7 @@ public partial class CharacterState : Node
     public Combat combat;
     public StateDataRepository stateDataRepo;
     public HumanStates container;
-    public AreaAwareness area_awareness;
+    public AreaAwareness areaAwareness;
     public Legs legs;
 
     [Export]
@@ -26,49 +26,44 @@ public partial class CharacterState : Node
     public string backendAnimation;
     [Export]
     public float trackingAngularSpeed = 10.0f;
-    private float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+    protected float gravity = (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
     [Export]
     public float staminaCost = 0f;
 
     public List<Combo> combos = new List<Combo>();
     
-    private double enterStateTime;
-    private Vector3 initial_position;
-    private float frameLength = 0.016f;
+    protected double enterStateTime;
+    protected Vector3 initial_position;
+    protected float frameLength = 0.016f;
 
-    private bool hasQueuedMove = false;
-    private string queuedMove = "nonexistent queued move, drop error please";
+    protected bool hasQueuedMove = false;
+    protected string queuedMove = "nonexistent queued move, drop error please";
 
-    private bool hasForcedMove = false;
-    private string forcedMove = "nonexistent forced move, drop error please";
+    protected bool hasForcedMove = false;
+    protected string forcedMove = "nonexistent forced move, drop error please";
 
-    private float DURATION;
+    protected float DURATION;
 
 
     public override void _Ready()
     {
     }
-    static public Dictionary<string,int> statePriority = new Dictionary<string, int>
-    {
-        {"Idle", 0},
-        {"Walk", 1},
-        {"Run", 2},
-        {"Jump", 3},
-        {"attack", 4},
-        {"hurt", 5},
-        {"die", 6}
-    };
     
+
+
+    public virtual string DefaultLifecycle(InputPackage input)
+    {
+        if (WorksLongerThan(DURATION))
+        {
+            return BestInputThatCanBePaid(input);
+        }
+        return "okay";
+    }
 
     public void SetPlayer(Player p)
     {
         player = p;
     }
-    public Dictionary<string,int> GetStatePrioritys()
-    {
-        return statePriority;
-    }
-
 
 
     public virtual string CheckRelevance(InputPackage input)
@@ -93,7 +88,7 @@ public partial class CharacterState : Node
         return DefaultLifecycle(input);
     }
 
-    private void CheckCombos(InputPackage input)
+    protected void CheckCombos(InputPackage input)
     {
         foreach (Combo combo in combos)
         {
@@ -104,10 +99,10 @@ public partial class CharacterState : Node
             }
         }
     }
-    public string BestInputThatCanBePaid(InputPackage input)
+    public virtual string BestInputThatCanBePaid(InputPackage input)
     {
-        input.inputActions.Sort((a, b) => container.GetStateByName(a).priority.CompareTo(container.GetStateByName(b).priority));
-        foreach (string action in input.inputActions)
+        input.inputActions.Sort(container.PrioritySort);
+		 foreach (string action in input.inputActions)
         {
             if (resources.CanBePaid(container.GetStateByName(action)))
             {
@@ -130,7 +125,6 @@ public partial class CharacterState : Node
         {
             ProcessInputVector(input, delta);
         }
-        Update(input, delta);
     }
     public void ProcessInputVector(InputPackage input, double delta)
     {
@@ -221,15 +215,6 @@ public partial class CharacterState : Node
         return stateDataRepo.GetRightWeaponHurts(backendAnimation, GetProgress());
     }
 
-    public string DefaultLifecycle(InputPackage input)
-    {
-        if (WorksLongerThan(DURATION))
-        {
-            return BestInputThatCanBePaid(input);
-        }
-        return "okay";
-    }
-
     public void OnEnterState()
     {
         initial_position = player.GlobalPosition;
@@ -266,13 +251,13 @@ public partial class CharacterState : Node
         }
     }
 
-    public HitData FormHitData(Weapon weapon)
+    public virtual HitData FormHitData(Weapon weapon)
     {
         GD.Print("someone tries to get hit by default Move");
         return HitData.Blank();
     }
 
-    public void ReactOnHit(HitData hit)
+    public virtual void ReactOnHit(HitData hit)
     {
         if (!IsVulnerable())
         {
@@ -286,7 +271,7 @@ public partial class CharacterState : Node
         {
             if (hit.effects.ContainsKey("pushback") && (bool)hit.effects["pushback"])
             {
-                area_awareness.lastPushbackVector = (Vector3)hit.effects["pushback_direction"];
+                areaAwareness.lastPushbackVector = (Vector3)hit.effects["pushback_direction"];
                 TryForceState("pushback");
             }
             else

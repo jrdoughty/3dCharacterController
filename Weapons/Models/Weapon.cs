@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public partial class Weapon : Area3D
 {
     public List<Area3D> hitboxIgnoreList = new List<Area3D>();
-    bool isAttacking = false;
+    public bool isAttacking = false;
     [Export] public Model holder;
     [Export] public float baseDamage;
     public Dictionary<string,string> basicAttacks;

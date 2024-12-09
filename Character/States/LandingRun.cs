@@ -3,13 +3,24 @@ using Godot;
 using System;
 public partial class LandingRun : CharacterState
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	const float TRANSITION_TIMING = 0.2f;
+    public override string DefaultLifecycle(InputPackage input)
+    {
+		if(!player.IsOnFloor())
+		{
+			return "midair";
+		}
+		if(WorksLongerThan(TRANSITION_TIMING))
+		{
+			return BestInputThatCanBePaid(input);
+		}
+		return "okay";
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public override void Update(InputPackage input, double delta)
+    {
+		Vector3 velocity = player.Velocity;
+		velocity.Y = gravity * (float)delta;
+		player.MoveAndSlide();
+    }
 }

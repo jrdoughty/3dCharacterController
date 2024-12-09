@@ -4,13 +4,14 @@ using System;
 
 public partial class Parried : CharacterState
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    protected override void OnEnterStateInternal()
+    {
+        base.OnEnterStateInternal();
+		player.AddToGroup("parried_humanoid");
+    }
+	protected override void OnExitStateInternal()
 	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+		base.OnExitStateInternal();
+		player.RemoveFromGroup("parried_humanoid");
 	}
 }

@@ -4,13 +4,33 @@ using System;
 
 public partial class Block : CharacterState
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	[Export] float blockCoefficient = 0.5f;
+	[Export] float blockSector = 3.14f;
+    public override string DefaultLifecycle(InputPackage input)
+    {
+		if(!player.IsOnFloor())
+		{
+			return "midair";
+		}
+		return BestInputThatCanBePaid(input);
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void ReactOnHit(HitData hit)
 	{
+		Vector3 weaponPosition = hit.weapon.GlobalPosition;
+		Vector3 ourPosition = player.GlobalPosition;
+		ourPosition.Y = weaponPosition.Y;
+		Vector3 hitDirection = ourPosition.DirectionTo(weaponPosition);
+		Vector3 faceDirection = player.Basis.Z;
+		if(faceDirection.AngleTo(hitDirection) < blockSector / 2)
+		{
+			GD.Print("Blocked");
+			resources.PayBlockCost(hit.damage, blockCoefficient);
+			TryForceState("block_reaction");
+		}
+		else
+		{
+			base.ReactOnHit(hit);
+		}
 	}
 }

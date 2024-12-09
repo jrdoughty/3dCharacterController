@@ -18,11 +18,13 @@ public partial class Jump : CharacterState
 			input.inputActions.Sort(container.PrioritySort);
 			return input.inputActions[0];
 		}
-		return "valid";
+		return "okay";
     }
 
     public override void Update(InputPackage input, double delta)
     {
+        base.Update(input, delta);
+    
 		velocity = player.Velocity;
         Vector2 raw_input = input.inputDirection;
 		Vector3 forward = player.Camera.GlobalBasis.Z;

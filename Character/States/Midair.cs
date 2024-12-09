@@ -4,56 +4,35 @@ using System;
 
 public partial class Midair : CharacterState
 {
-	public Vector3 velocity;
-	private Vector3 lastMovementDirection = Vector3.Back;
+	[Export] protected float DELTA_VECTOR_LENGTH = 6;
+	protected Vector3 jumpDirection;
+	protected float landingHeight = 1.163f;
 
-	public Midair()
-	{
-		stateName = "Midair";
-	}
     public override string CheckRelevance(InputPackage input)
     {
-		if(player.IsOnFloor() && player.Velocity.Y == 0)
+		float floorDistance = areaAwareness.GetFloorDistance();
+		if(floorDistance < landingHeight)
 		{
-			input.inputActions.Sort(container.PrioritySort);
-			return input.inputActions[0];
+			Vector3 velocity = player.Velocity;
+			velocity.Y = 0;
+			if(velocity.LengthSquared() >= 10)
+			{
+				return "landing_run";
+			}
+			return "landing_walk";
 		}
-		return "valid";
+		return "okay";
     }
 
     public override void Update(InputPackage input, double delta)
     {
-		velocity = player.Velocity;
-        Vector2 raw_input = input.inputDirection;
-		Vector3 forward = player.Camera.GlobalBasis.Z;
-		Vector3 right = player.Camera.GlobalBasis.X;
-		Vector3 moveDirection = forward * raw_input.Y + right * raw_input.X;
-		moveDirection.Y = 0;
-		moveDirection = moveDirection.Normalized();
-
-		float yVelocity = velocity.Y;
-		velocity = velocity.MoveToward(moveDirection * player.MoveSpeed, player.acceleration * (float)delta);
-		velocity.Y = 0;	
-		velocity.Y = yVelocity + player.GetGravity().Y * (float)delta;
-		player.Velocity = velocity;
-		if (moveDirection != Vector3.Zero)//Not as tutorial, so may need tweaked
-		{
-			lastMovementDirection = moveDirection;
-		}
-		//RotateY(Vector3.Back.Rotated(Vector3.Up, Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up)));
-		float targetAngle = Vector3.Back.SignedAngleTo(lastMovementDirection, Vector3.Up);
-		player.UpdateRotation(targetAngle, (float)delta);
+		Vector3 velocity = player.Velocity;
+		velocity.Y = gravity * (float)delta;
+		player.MoveAndSlide();
     }
     protected override void OnEnterStateInternal()
     {
-		player.visual.Jump();
-		velocity = player.Velocity;
-		velocity.Y += player.JumpImpulse;
-		player.Velocity = velocity;
-		GD.Print("Midair");
-    }
-    protected override void OnExitStateInternal()
-    {
-        GD.Print("Exiting Midair");
+		jumpDirection = player.Basis.Z * Math.Clamp(player.Velocity.Length(), 1, 999999);
+		jumpDirection.Y = 0;
     }
 }

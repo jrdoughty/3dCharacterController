@@ -4,30 +4,17 @@ using System;
 
 public partial class Idle : CharacterState
 {
-	public Vector3 velocity;
 
-    public Idle()
+    public override string DefaultLifecycle(InputPackage input)
     {
-        stateName = "Idle";
-        animation = "idle";
-    }
-    public override string CheckRelevance(InputPackage input)
-    {
-		input.inputActions.Sort(container.PrioritySort);
-        if(input.inputActions[0] == "idle")
-            return "valid";
-        return input.inputActions[0];
-    }
-
-    public override void Update(InputPackage input, double delta)
-    {
+        if(!player.IsOnFloor())
+        {
+            return "midair";
+        }
+        return BestInputThatCanBePaid(input);
     }
     protected override void OnEnterStateInternal()
     {
-        player.visual.Idle();
         player.Velocity = Vector3.Zero;
-    }
-    protected override void OnExitStateInternal()
-    {
     }
 }

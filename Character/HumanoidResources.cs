@@ -102,4 +102,8 @@ public partial class HumanoidResources : Node
 			statuses.Remove("fatique");
 		}
 	}
+	public void PayBlockCost(float damage, float blockCoefficient)
+	{
+		LoseHealth(damage * blockCoefficient);
+	}
 }

@@ -10,7 +10,7 @@ public partial class StateDataRepository : Node
     public Vector3 GetRootDeltaPos(string animation, double progress, double delta)
     {
         Animation data = stateDatabase.GetAnimation(animation);
-        int track = data.FindTrack("StateDatabase:root_position", Animation.TrackType.Value);
+        int track = data.FindTrack("MoveDatabase:root_position", Animation.TrackType.Value);
         if (data.TrackGetKeyCount(track) == 0)
         {
             return Vector3.Zero;
@@ -23,27 +23,27 @@ public partial class StateDataRepository : Node
 
     public bool GetTransitionsToQueued(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:transitions_to_queued", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:transitions_to_queued", timecode);
     }
 
     public bool GetAcceptsQueueing(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:accepts_queueing", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:accepts_queueing", timecode);
     }
 
     public bool GetVulnerable(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:is_vulnerable", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:is_vulnerable", timecode);
     }
 
     public bool GetInterruptable(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:is_interruptable", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:is_interruptable", timecode);
     }
 
     public bool GetParryable(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:is_parryable", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:is_parryable", timecode);
     }
 
     public float GetDuration(string animation)
@@ -53,11 +53,11 @@ public partial class StateDataRepository : Node
 
     public bool GetRightWeaponHurts(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:right_hand_weapon_hurts", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:right_hand_weapon_hurts", timecode);
     }
 
     public bool TracksInputVector(string animation, double timecode)
     {
-        return stateDatabase.GetBooleanValue(animation, "StateDatabase:tracks_input_vector", timecode);
+        return stateDatabase.GetBooleanValue(animation, "MoveDatabase:tracks_input_vector", timecode);
     }
 }

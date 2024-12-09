@@ -16,7 +16,7 @@ public partial class HumanStates : Node
 	[Export] 
 	public StateDataRepository stateDataRepo;
 	[Export] 
-	public AreaAwareness area_awareness;
+	public AreaAwareness areaAwareness;
 	[Export] 
 	public Skeleton3D skeleton;
 	[Export] 
@@ -38,7 +38,7 @@ public partial class HumanStates : Node
 				state.skeleton = skeleton;
 				state.stateDataRepo = stateDataRepo;
 				state.container = this;
-				state.area_awareness = area_awareness;
+				state.areaAwareness = areaAwareness;
 				state.legs = legs;
 				state.AssignCombos();
 			}

@@ -4,13 +4,56 @@ using System;
 
 public partial class Attack : CharacterState
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	[Export] 
+	public float RELEASES_PRIORITY;
+	private float hitDamage = 10;
+
+    public override string DefaultLifecycle(InputPackage input)
+    {
+		string bestInput = BestInputThatCanBePaid(input);
+		if (WorksLongerThan(RELEASES_PRIORITY))
+		{
+			if(WorksLongerThan(DURATION) || bestInput != "idle")
+			{
+				return bestInput;
+			}
+		}
+		return "okay";
+    }
+
+    public override void Update(InputPackage input, double delta)
+    {
+		MovePlayer(delta);
+    }
+
+	protected void MovePlayer(double delta)
 	{
+		Vector3 deltaPos = GetRootPositionDelta(delta);
+		deltaPos.Y = 0;
+		deltaPos = player.GetQuaternion() * deltaPos / (float)delta;
+		if (!player.IsOnFloor())
+		{
+			deltaPos.Y -= gravity * (float)delta;
+			player.Velocity = deltaPos;
+			hasForcedMove = true;
+			forcedMove = "midair";
+		}
+		player.MoveAndSlide();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override HitData FormHitData(Weapon weapon)
+    {
+		HitData hit = new HitData();
+		hit.damage = hitDamage;
+		hit.hitMoveAnimation = animation;
+		hit.isParryable = IsParryable();
+		hit.weapon = player.model.activeWeapon;
+		return hit;
+	}
+
+	protected override void OnExitStateInternal()
 	{
+		player.model.activeWeapon.hitboxIgnoreList.Clear();
+		player.model.activeWeapon.isAttacking = false;
 	}
 }
